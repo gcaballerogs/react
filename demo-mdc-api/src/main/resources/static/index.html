@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<script>
+			function onSubmit(){
+				var form = document.forms.namedItem("userForm");
+				var formData = new FormData(form);
+				
+				fetch('/mdc/process', {
+					method: 'post',
+					body: formData
+				}).then(function(response){
+					 if (response.status !== 200) {  
+						alert("Hubo algun error !");
+					 } else {
+						alert("Peticion exitosa");
+					 }
+				}).catch(function(err) {
+					alert("Error !");
+				});;
+			}
+		</script>
+	</head>
+	<body>
+		<form name="userForm">
+			<label> archivo : </label><input name="archivoCuentas" type="file"><br/><br/>
+			<label> tipoFormatoDatos: </label> <br/><input id="tipoCaptacion" name="tipoCaptacion"/><br/><br/>
+			<label> nombreProceso : </label> <br/> <input id="nombreProceso" name="nombreProceso"/><br/><br/>
+			<label for="fechaProceso"> fechaProceso : </label> <br/> <input type="date" id="fechaProceso" name="fechaProceso"> <br/><br/>
+			<label for="tipoScore"> Tipo de score: </label> <br/>
+			<select name="tipoScore" id="tipoScore">
+			  <option value="BC score">BC score</option> 
+			  <option value="TC score">TC score</option>
+			  <option value="Mix score">Mix score</option>
+			</select><br/><br/>
+			<span> isCan : </span>
+				<input type="radio" id="siCan" name="canFlag" value="true"><label for="siCan"> Si</label>
+			 	<input type="radio" id="noCan" name="canFlag" value="false"><label for="noCan"> No</label><br/><br/>
+			<input type="button" value="Submit" id="submit" onclick="onSubmit(); return false;"/>
+		</form>
+	</body>
+</html>
